@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RANGE — Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .login { max-width: 360px; margin: 40px auto; }
+    .login input {
+      width: 100%; padding: 12px 14px; margin: 8px 0;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-size: 16px;
+    }
+    .btn {
+      width: 100%; padding: 12px; margin-top: 8px;
+      background: var(--accent); color: #0f1115; border: none;
+      border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer;
+    }
+    .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); font-weight: 500; }
+    .err { color: #ff6b6b; font-size: 14px; min-height: 20px; margin: 8px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 18px 0; }
+    .metric { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
+    .metric .n { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.1; }
+    .metric .l { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .sub { color: var(--accent); font-size: 13px; margin-top: 6px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    th { color: var(--muted); font-weight: 600; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .topbar .btn { width: auto; padding: 8px 16px; font-size: 14px; }
+    .hidden { display: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 12px; background: var(--border); color: var(--text); }
+    .badge.warn { background: rgba(247,125,10,.18); color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <span class="logo"></span>
+      <h1>RANGE</h1>
+    </header>
+
+    <!-- LOGIN -->
+    <div id="loginView" class="login">
+      <h1 class="title">Dashboard</h1>
+      <p class="updated">Accedi con il tuo account amministratore.</p>
+      <input id="email" type="email" placeholder="Email" autocomplete="username" />
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+      <div id="loginErr" class="err"></div>
+      <button id="loginBtn" class="btn">Accedi</button>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashView" class="hidden">
+      <div class="topbar">
+        <h1 class="title" style="margin:0;">Andamento app</h1>
+        <button id="logoutBtn" class="btn ghost">Esci</button>
+      </div>
+      <p id="generatedAt" class="updated"></p>
+      <div id="dashErr" class="err"></div>
+
+      <h2>Utenti</h2>
+      <div class="grid">
+        <div class="metric"><div class="n" id="uTotal">—</div><div class="l">Totali</div></div>
+        <div class="metric"><div class="n" id="u7">—</div><div class="l">Nuovi (7 giorni)</div></div>
+        <div class="metric"><div class="n" id="u30">—</div><div class="l">Nuovi (30 giorni)</div></div>
+      </div>
+
+      <h2>Post</h2>
+      <div class="grid">
+        <div class="metric"><div class="n" id="pTotal">—</div><div class="l">Totali</div></div>
+        <div class="metric"><div class="n" id="p7">—</div><div class="l">Nuovi (7 giorni)</div></div>
+        <div class="metric"><div class="n" id="pApproved">—</div><div class="l">Approvati</div></div>
+        <div class="metric"><div class="n" id="pPending">—</div><div class="l">In attesa</div><div class="sub" id="pPendingHint"></div></div>
+        <div class="metric"><div class="n" id="pRejected">—</div><div class="l">Rifiutati</div></div>
+        <div class="metric"><div class="n" id="pFlagged">—</div><div class="l">Segnalati (AI)</div></div>
+      </div>
+
+      <h2>Interazioni</h2>
+      <div class="grid">
+        <div class="metric"><div class="n" id="cTotal">—</div><div class="l">Commenti</div></div>
+        <div class="metric"><div class="n" id="lTotal">—</div><div class="l">Like</div></div>
+        <div class="metric"><div class="n" id="fAccepted">—</div><div class="l">Amicizie</div></div>
+        <div class="metric"><div class="n" id="fPending">—</div><div class="l">Richieste in sospeso</div></div>
+      </div>
+
+      <h2>Moderazione</h2>
+      <div class="grid">
+        <div class="metric"><div class="n" id="rOpen">—</div><div class="l">Segnalazioni ricevute</div><div class="sub" id="rHint"></div></div>
+      </div>
+
+      <h2>Ultimi iscritti</h2>
+      <table>
+        <thead><tr><th>Username</th><th>Data iscrizione</th></tr></thead>
+        <tbody id="recentBody"></tbody>
+      </table>
+    </div>
+
+    <footer>RANGE — Dashboard amministrativa · dati aggregati, nessuna email o dato sensibile.</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://cpzdvprnpxiqifzfhizo.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwemR2cHJucHhpcWlmemZoaXpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2MDA3NDIsImV4cCI6MjA5NjE3Njc0Mn0.u2nsNrCpe5oEo5_5PAnZiT1w-JsQGXBwHGfVCh6_Fp4";
+
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const $ = (id) => document.getElementById(id);
+    const loginView = $("loginView");
+    const dashView = $("dashView");
+
+    function fmtDate(iso) {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" }) +
+             " " + d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+    }
+
+    async function loadMetrics() {
+      $("dashErr").textContent = "";
+      const { data, error } = await sb.rpc("admin_metrics");
+      if (error) {
+        $("dashErr").textContent =
+          error.message && error.message.includes("not authorized")
+            ? "Questo account non è amministratore. Aggiungilo con lo script SQL (app_admins)."
+            : "Errore nel caricamento: " + error.message;
+        return;
+      }
+      const m = data;
+      $("generatedAt").textContent = "Aggiornato al " + fmtDate(m.generated_at);
+
+      $("uTotal").textContent = m.users.total;
+      $("u7").textContent = m.users.new_7d;
+      $("u30").textContent = m.users.new_30d;
+
+      $("pTotal").textContent = m.posts.total;
+      $("p7").textContent = m.posts.new_7d;
+      $("pApproved").textContent = m.posts.by_moderation.approved;
+      $("pPending").textContent = m.posts.by_moderation.pending;
+      $("pRejected").textContent = m.posts.by_moderation.rejected;
+      $("pFlagged").textContent = m.posts.by_moderation.flagged;
+      $("pPendingHint").textContent = m.posts.by_moderation.pending > 0 ? "da moderare" : "";
+
+      $("cTotal").textContent = m.engagement.comments_total;
+      $("lTotal").textContent = m.engagement.likes_total;
+      $("fAccepted").textContent = m.friendships.accepted;
+      $("fPending").textContent = m.friendships.pending;
+
+      $("rOpen").textContent = m.moderation.reports_open;
+      $("rHint").textContent = m.moderation.reports_open > 0 ? "controlla entro 24h" : "";
+
+      const body = $("recentBody");
+      body.innerHTML = "";
+      (m.users.recent || []).forEach((u) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + (u.username || "—") + "</td><td>" + fmtDate(u.created_at) + "</td>";
+        body.appendChild(tr);
+      });
+    }
+
+    function showDashboard() {
+      loginView.classList.add("hidden");
+      dashView.classList.remove("hidden");
+      loadMetrics();
+    }
+    function showLogin() {
+      dashView.classList.add("hidden");
+      loginView.classList.remove("hidden");
+    }
+
+    $("loginBtn").addEventListener("click", async () => {
+      $("loginErr").textContent = "";
+      $("loginBtn").disabled = true;
+      const { error } = await sb.auth.signInWithPassword({
+        email: $("email").value.trim(),
+        password: $("password").value,
+      });
+      $("loginBtn").disabled = false;
+      if (error) { $("loginErr").textContent = "Accesso fallito: " + error.message; return; }
+      showDashboard();
+    });
+
+    $("logoutBtn").addEventListener("click", async () => {
+      await sb.auth.signOut();
+      showLogin();
+    });
+
+    // Sessione già attiva? Vai dritto alla dashboard.
+    sb.auth.getSession().then(({ data }) => {
+      if (data.session) showDashboard();
+    });
+  </script>
+</body>
+</html>
