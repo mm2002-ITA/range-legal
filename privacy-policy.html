@@ -16,7 +16,7 @@
     <a class="back" href="index.html">← Tutti i documenti</a>
 
     <h1 class="title">Informativa sulla Privacy di RANGE</h1>
-    <p class="updated">Ultimo aggiornamento: 17 agosto 2026</p>
+    <p class="updated">Ultimo aggiornamento: 5 ottobre 2026</p>
 
     <p>RANGE è un social network basato sui luoghi: ogni post è ancorato alle coordinate del punto in cui è stato creato, e lo vedi solo se ti trovi fisicamente nei dintorni. Questa informativa spiega quali dati personali trattiamo, perché, e quali diritti hai. È scritta in linguaggio semplice, ma ha valore legale.</p>
 
@@ -46,11 +46,13 @@
       <li>La posizione GPS del punto in cui crei un post (vedi sezione 4).</li>
       <li>Commenti, "mi piace", messaggi nelle chat.</li>
       <li>Relazioni sociali: richieste di amicizia, amicizie, utenti bloccati, segnalazioni inviate.</li>
+      <li><strong>Teletrasporto</strong>: quando lo usi registriamo quale tuo post hai scelto, le sue coordinate e l'orario. Servono solo a sapere se l'hai già usato oggi e sono cancellati dopo 2 giorni.</li>
     </ul>
     <p><strong>Dati tecnici</strong></p>
     <ul>
       <li>Indirizzo IP e dati tecnici minimi necessari a far funzionare e proteggere il servizio, trattati dalla nostra infrastruttura (Supabase).</li>
       <li><strong>Tentativi di accesso non riusciti</strong>: quando un accesso fallisce registriamo lo username usato, l'indirizzo IP e l'orario. Servono solo a fermare i tentativi automatici di indovinare le password. Gli accessi riusciti <strong>non</strong> lasciano traccia, e questi dati sono cancellati automaticamente entro un giorno.</li>
+      <li>Il <strong>fuso orario</strong> del dispositivo (per esempio "Europe/Rome"), che inviamo al server per calcolare la tua mezzanotte locale: il raggio più ampio dopo un post e il teletrasporto valgono fino a mezzanotte. Non viene conservato.</li>
       <li>Sul tuo dispositivo conserviamo un token di sessione per tenerti connesso.</li>
       <li><strong>Non</strong> usiamo SDK pubblicitari, identificatori per il tracciamento, né strumenti di profilazione.</li>
     </ul>
@@ -71,6 +73,8 @@
       <li>Quando crei un post, le coordinate vengono associate <strong>al post</strong> (al luogo), non a te come persona.</li>
       <li><strong>Non mostriamo mai la tua posizione ad altri utenti.</strong> RANGE mostra dei POST ancorati a dei LUOGHI, non le PERSONE. Nessun altro utente può sapere dove sei, né dove sei stato.</li>
       <li>La tua posizione "attuale" non viene salvata: la usiamo sul momento per calcolare cosa puoi vedere, poi non la conserviamo come storico.</li>
+      <li>Il <strong>teletrasporto</strong> ti fa guardare, per un'ora, il luogo di un <strong>tuo</strong> post: registriamo solo quel post e l'orario (sezione 2), mai la posizione in cui ti trovi. Nessun altro utente sa che lo hai usato.</li>
+      <li>I <strong>Luoghi</strong> (panchine, fontane, monumenti…) vengono da <strong>OpenStreetMap</strong> (© contributori di OpenStreetMap, licenza ODbL). Per mostrarli, il nostro server scarica i dati della zona — un riquadro di circa 1 km — senza alcun dato che ti identifichi.</li>
     </ul>
 
     <h2>5. Con chi condividiamo i dati</h2>
@@ -87,6 +91,7 @@
       <li>Quando elimini l'account, cancelliamo i tuoi dati (vedi sezione 10).</li>
       <li>Alcuni dati legati alla sicurezza (es. segnalazioni inviate o ricevute) possono essere conservati per il tempo necessario a prevenire abusi.</li>
       <li>I <strong>tentativi di accesso falliti</strong> (username, IP, orario) sono cancellati automaticamente <strong>entro un giorno</strong>.</li>
+      <li>I dati del <strong>teletrasporto</strong> (post scelto, coordinate, orario) sono cancellati dopo <strong>2 giorni</strong>.</li>
     </ul>
 
     <h2>7. Trasferimenti fuori dall'Unione Europea</h2>
