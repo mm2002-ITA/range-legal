@@ -16,7 +16,7 @@
     <a class="back" href="index.html">← Tutti i documenti</a>
 
     <h1 class="title">Informativa sulla Privacy di RANGE</h1>
-    <p class="updated">Ultimo aggiornamento: 5 ottobre 2026</p>
+    <p class="updated">Ultimo aggiornamento: 6 novembre 2026</p>
 
     <p>RANGE è un social network basato sui luoghi: ogni post è ancorato alle coordinate del punto in cui è stato creato, e lo vedi solo se ti trovi fisicamente nei dintorni. Questa informativa spiega quali dati personali trattiamo, perché, e quali diritti hai. È scritta in linguaggio semplice, ma ha valore legale.</p>
 
@@ -42,7 +42,7 @@
     </ul>
     <p><strong>Contenuti che pubblichi</strong></p>
     <ul>
-      <li>Foto dei post ed eventuale didascalia.</li>
+      <li>Foto e video dei post e degli eventi, con il loro audio, ed eventuale didascalia.</li>
       <li>La posizione GPS del punto in cui crei un post (vedi sezione 4).</li>
       <li>Commenti, "mi piace", messaggi nelle chat.</li>
       <li>Relazioni sociali: richieste di amicizia, amicizie, utenti bloccati, segnalazioni inviate.</li>
@@ -80,6 +80,9 @@
     <h2>5. Con chi condividiamo i dati</h2>
     <ul>
       <li><strong>Supabase</strong> è il nostro fornitore di backend (database, autenticazione, archiviazione delle immagini) e agisce come responsabile del trattamento per nostro conto. I dati sono ospitati sulla sua infrastruttura, nella regione <strong>Unione Europea (Irlanda)</strong>.</li>
+      <li><strong>OpenAI</strong> (Stati Uniti) controlla automaticamente i contenuti prima che li vedano altri utenti: riceve foto, didascalie, nomi e descrizioni degli eventi, alcuni fotogrammi dei video e il testo trascritto dal loro audio.</li>
+      <li><strong>Groq</strong> (Stati Uniti) trascrive in testo l'audio dei video, così che possa essere controllato: riceve il file del video. Il nostro account è impostato per non far conservare i dati inviati (Zero Data Retention).</li>
+      <li><strong>Expo</strong> e <strong>Apple</strong> recapitano le notifiche push: ricevono il testo della notifica e il codice che identifica il tuo dispositivo.</li>
       <li>I contenuti che pubblichi sono visibili agli altri utenti secondo le regole dell'app (post pubblici o riservati agli amici, in base alla visibilità che scegli e alla prossimità).</li>
       <li><strong>Non vendiamo i tuoi dati</strong> e non li cediamo a inserzionisti. Non c'è pubblicità né profilazione.</li>
       <li>Potremmo comunicare dati all'autorità competente solo se obbligati per legge.</li>
@@ -89,17 +92,18 @@
     <ul>
       <li>I dati dell'account e i contenuti restano finché tieni l'account attivo. Per natura, i post di RANGE restano ancorati al loro luogo nel tempo.</li>
       <li>Quando elimini l'account, cancelliamo i tuoi dati (vedi sezione 10).</li>
+      <li>Un post o un evento bloccato dal controllo non è visibile agli altri: lo vedi solo tu, con il motivo del blocco, finché non lo elimini o elimini l'account. Il video bocciato viene cancellato.</li>
       <li>Alcuni dati legati alla sicurezza (es. segnalazioni inviate o ricevute) possono essere conservati per il tempo necessario a prevenire abusi.</li>
       <li>I <strong>tentativi di accesso falliti</strong> (username, IP, orario) sono cancellati automaticamente <strong>entro un giorno</strong>.</li>
       <li>I dati del <strong>teletrasporto</strong> (post scelto, coordinate, orario) sono cancellati dopo <strong>2 giorni</strong>.</li>
     </ul>
 
     <h2>7. Trasferimenti fuori dall'Unione Europea</h2>
-    <p>I dati sono ospitati nell'Unione Europea (Irlanda) e di norma <strong>non vengono trasferiti fuori dall'UE</strong>. Qualora un trasferimento extra-UE dovesse rendersi necessario, avverrebbe con le garanzie previste dal GDPR (es. clausole contrattuali standard).</p>
+    <p>I dati sono ospitati nell'Unione Europea (Irlanda). Alcuni fornitori si trovano però negli <strong>Stati Uniti</strong>: <strong>OpenAI</strong> e <strong>Groq</strong> per il controllo dei contenuti, <strong>Expo</strong> e <strong>Apple</strong> per le notifiche (sezione 5). Questi trasferimenti avvengono con le garanzie previste dal GDPR, come le clausole contrattuali standard.</p>
 
     <h2>8. Moderazione e sicurezza</h2>
     <ul>
-      <li>I contenuti possono essere analizzati automaticamente da sistemi di moderazione <strong>lato server</strong> per individuare materiale vietato, prima della pubblicazione. Questa analisi serve a filtrare i contenuti, non a prendere decisioni con effetti legali sulle persone.</li>
+      <li>I contenuti (foto, video con il loro audio, didascalie, nomi e descrizioni degli eventi) sono analizzati automaticamente <strong>lato server</strong>, anche con servizi di intelligenza artificiale di terzi (sezione 5), per individuare materiale vietato prima che li vedano altri utenti. Se un contenuto viene bloccato ti indichiamo il motivo, e puoi correggerlo o eliminarlo. Questa analisi serve a filtrare i contenuti, non a prendere decisioni con effetti legali sulle persone.</li>
       <li>Puoi <strong>segnalare</strong> post e commenti e <strong>bloccare</strong> altri utenti; agiamo sulle segnalazioni per rimuovere i contenuti che violano le regole.</li>
       <li>Per proteggere gli account, limitiamo il numero di tentativi di accesso falliti nell'arco di pochi minuti. A questo scopo teniamo per un giorno lo username e l'IP dei soli tentativi <strong>non riusciti</strong> (vedi sezioni 2, 3 e 6).</li>
     </ul>
@@ -108,7 +112,7 @@
     <p>RANGE è riservato a chi ha <strong>almeno 18 anni</strong>. Alla registrazione verifichiamo l'età tramite la data di nascita. Non trattiamo consapevolmente dati di minori; se veniamo a conoscenza dell'account di un minore, lo rimuoviamo.</p>
 
     <h2>10. Cancellazione dell'account ("diritto all'oblio")</h2>
-    <p>Puoi eliminare l'account in qualsiasi momento dall'app (Profilo → Elimina account). La cancellazione è definitiva e comporta la rimozione <strong>a cascata</strong> dei tuoi dati: profilo, post, foto, commenti, "mi piace", amicizie, messaggi.</p>
+    <p>Puoi eliminare l'account in qualsiasi momento dall'app (Profilo → Elimina account). La cancellazione è definitiva e comporta la rimozione <strong>a cascata</strong> dei tuoi dati: profilo, post, foto, video, commenti, "mi piace", amicizie, messaggi.</p>
 
     <h2>11. I tuoi diritti</h2>
     <p>In base al GDPR hai diritto di:</p>
